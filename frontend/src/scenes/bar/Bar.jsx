@@ -7,7 +7,7 @@ const Bar = () => {
         <Box m="20px" >
             <Header title="Bar Chart" subtitle="Simple Bar Chart" />
             <Box height="75vh" m="40px 0 0 0" >
-                <BarChart />
+                <BarChart /> 
             </Box>
         </Box>
     )

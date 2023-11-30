@@ -5,6 +5,7 @@ import Topbar from "./scenes/global/Topbar";
 import Dashboard from "./scenes/dashboard/Dashboard";
 import Sidebar from "./scenes/global/Sidebar";
 import Bar from "./scenes/bar/Bar";
+import Pie from "./scenes/pie/Pie";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -19,6 +20,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/bar" element={<Bar />} />
+              <Route path="/pie" element={<Pie />} />
             </Routes>
           </main>
         </div>
