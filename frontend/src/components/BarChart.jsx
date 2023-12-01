@@ -1,16 +1,33 @@
 import { useTheme } from "@emotion/react"
 import { ResponsiveBar } from "@nivo/bar"
 import { tokens } from "../theme"
-import { mockBarData as data } from "../data/mockData";
+// import { mockBarData as data } from "../data/mockData";
+import { useEffect, useState } from "react";
+import axios from "axios"
 
 
 const BarChart = ({ isDashboard = false }) => {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
 
+    const [chartData, setChartData] = useState([])
+
+    useEffect(() => {
+        const getChartData = async () => {
+            try {
+                const res = await axios.get("http://localhost:5000/api/data/intensity")
+                setChartData(res.data)
+                console.log(res.data);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        getChartData()
+    }, [])
+
     return (
         <ResponsiveBar
-            data={data}
+            data={chartData}
             theme={{
                 // added
                 axis: {
@@ -40,8 +57,8 @@ const BarChart = ({ isDashboard = false }) => {
                     },
                 },
             }}
-            keys={["hot dog", "burger", "sandwich", "kebab", "fries", "donut"]}
-            indexBy="country"
+            keys={["intensity"]}
+            indexBy="topic"
             margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
             padding={0.3}
             valueScale={{ type: "linear" }}
@@ -77,7 +94,7 @@ const BarChart = ({ isDashboard = false }) => {
                 tickSize: 5,
                 tickPadding: 5,
                 tickRotation: 0,
-                legend: isDashboard ? undefined : "country", // changed
+                legend: "topic", // changed
                 legendPosition: "middle",
                 legendOffset: 32,
             }}
@@ -85,7 +102,7 @@ const BarChart = ({ isDashboard = false }) => {
                 tickSize: 5,
                 tickPadding: 5,
                 tickRotation: 0,
-                legend: isDashboard ? undefined : "food", // changed
+                legend: "intensity", // changed
                 legendPosition: "middle",
                 legendOffset: -40,
             }}
